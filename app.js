@@ -67,7 +67,7 @@ io.on('connection', function(socket){
             socket.emit('message', 'QR Code received, scan please!');
         });
     });
-
+    
     client.on('ready', () => {
         socket.emit('message', 'Whatsapp is ready!');
     });
