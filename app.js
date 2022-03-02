@@ -9,6 +9,9 @@ const server = http.createServer(app);
 const io = socketIO(server);
 const fs = require('fs');
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 const SESSION_FILE_PATH = './whatsapp-session.json';
 
 let sessionCfg;
@@ -25,16 +28,6 @@ app.get('/',(req, res) => {
 const client = new Client({
     authStrategy: new LegacySessionAuth({
         session: sessionCfg
-    })
-});
-
-client.on('authenticated', (session) => {
-    console.log('AUTHENTICATED', session);
-    sessionCfg = session;
-    fs.writeFile(SESSION_FILE_PATH, JSON.stringify(session), function (err){
-        if (err) {
-            console.error(err);
-        }
     })
 });
 
@@ -69,7 +62,38 @@ io.on('connection', function(socket){
     });
     
     client.on('ready', () => {
+        socket.emit('ready', 'Whatsapp is ready!');
         socket.emit('message', 'Whatsapp is ready!');
+    });
+    
+    client.on('authenticated', (session) => {
+        socket.emit('authenticated', 'Whatsapp is authenticated!');
+        socket.emit('message', 'Whatsapp is authenticated!');
+        console.log('AUTHENTICATED', session);
+        sessionCfg = session;
+        fs.writeFile(SESSION_FILE_PATH, JSON.stringify(session), function(err) {
+            if (err) {
+                console.error(err);
+            }
+        });
+    });
+});
+
+//Send message
+app.post('/send-message', (req, res) =>{
+    const number = req.body.number;
+    const message = req.body.message;
+
+    client.sendMessage(number, message).then(response => {
+        res.status(200).json({
+            status: true,
+            response: response
+        });
+    }).catch(err => {
+        res.status(500).json({
+            status: false,
+            response: err
+        });
     });
 });
 
