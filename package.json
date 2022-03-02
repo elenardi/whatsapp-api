@@ -25,6 +25,7 @@
   "homepage": "https://github.com/elenardi/whatsapp-api#readme",
   "dependencies": {
     "express": "^4.17.3",
+    "http": "^0.0.1-security",
     "qrcode": "^1.5.0",
     "qrcode-terminal": "^0.12.0",
     "socket.io": "^4.4.1",
