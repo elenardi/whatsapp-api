@@ -1,2 +1,3 @@
-2022/03/02-09:14:45.469 1b50 Creating DB D:\Program\whatsapp-api\.wwebjs_auth\session\Default\Session Storage since it was missing.
-2022/03/02-09:14:45.620 1b50 Reusing MANIFEST D:\Program\whatsapp-api\.wwebjs_auth\session\Default\Session Storage/MANIFEST-000001
+2022/03/02-09:19:30.195 1270 Reusing MANIFEST D:\Program\whatsapp-api\.wwebjs_auth\session\Default\Session Storage/MANIFEST-000001
+2022/03/02-09:19:30.196 1270 Recovering log #3
+2022/03/02-09:19:30.197 1270 Reusing old log D:\Program\whatsapp-api\.wwebjs_auth\session\Default\Session Storage/000003.log 
